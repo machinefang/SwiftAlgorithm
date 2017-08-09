@@ -8,7 +8,7 @@ max(5, 6)
 max(0, 0)
 
 
-
+//global variable 没办法多线程
 
 public class TreeNode {
     public var val: Int
@@ -39,7 +39,8 @@ class Solution1 {
 
 class Solution2 {
 
-    var result : Int = 0
+    var result : Int = 0   //global variable 没办法多线程
+
     func maxDepth(_ root: TreeNode?) -> Int {
         guard let rootNode = root else {
             return 0

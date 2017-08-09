@@ -15,14 +15,14 @@ str.substring(to: index)
 
 
 
+//一一查看
 
 
 
 
+//class Solution {
 
-class Solution {
     func longestCommonPrefix(_ strs: [String]) -> String {
-
         guard strs.count != 0 else {
             return ""
         }
@@ -34,14 +34,14 @@ class Solution {
             let prefixCharArr = prefix.characters.map{String($0)}
             let strCharArr = strs[i].characters.map{String($0)}
 
-            if j <= prefixCharArr.count && j <= strCharArr.count && prefixCharArr[j] == strCharArr[j] {
+            while( j < prefixCharArr.count && j < strCharArr.count && prefixCharArr[j] == strCharArr[j]) {
                 j += 1
             }
 
             if j == 0 {
                 return ""
             }
-            let index = prefix.index(prefix.startIndex, offsetBy: j+1)
+            let index = prefix.index(prefix.startIndex, offsetBy: j)
             prefix = prefix.substring(to: index)
 
         }
@@ -49,4 +49,7 @@ class Solution {
         return prefix
 
     }
-}
+//}
+
+var result1 = longestCommonPrefix(["abc", "ac"])
+

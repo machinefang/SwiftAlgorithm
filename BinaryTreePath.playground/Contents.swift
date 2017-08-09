@@ -4,7 +4,11 @@ import UIKit
 
 var str = "Hello, playground"
 
+//Given a binary tree, return all root-to-leaf paths. 
 
+
+//****Solution1: Divide Conquer :
+//Solution2: traverse
 
   public class TreeNode {
       public var val: Int
