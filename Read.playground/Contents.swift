@@ -16,3 +16,22 @@ var str = "Hello, playground"
 //
 //read 函数可能被调用多次。
 
+
+struct Reader4{
+
+}
+
+
+class Solution : Reader4 {
+
+    /**
+     * @param buf destination buffer
+     * @param n maximum number of characters to read
+     * @return the number of characters read
+     */
+
+    func read(buf: [Character], n: Int) -> Int {
+
+    }
+}
+
