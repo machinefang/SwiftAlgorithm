@@ -16,3 +16,24 @@ var str = "Hello, playground"
 //
 //插入区间[3, 4] 到 [[1,2], [5,9]]，我们得到 [[1,2], [3,4], [5,9]]。
 
+struct Hard_057_Insert_Interval {
+    static func insert(intervals: [[Int]], newInterval newI: [Int]) -> [[Int]]{
+        var newInterval = newI
+        var res: [[Int]] = intervals
+
+        for i in 0 ..< intervals.count {
+            if newInterval[0] > intervals[i][1] {
+                res.append(intervals[i])
+            }
+            else if newInterval[1] < intervals[i][0] {
+                res.append(newInterval)
+                newInterval = intervals[i]
+            }else{
+                newInterval[0] = min(newInterval[0], intervals[i][0])
+                newInterval[1] = max(newInterval[1], intervals[i][1])
+            }
+        }
+        res.append(newInterval)
+        return res
+    }
+}
