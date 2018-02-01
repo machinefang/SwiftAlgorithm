@@ -61,7 +61,7 @@ func deleteOrInsert(less: [String], more: [String]) -> Bool {
 }
 
 
-isOneEditDistance(s: "abcd", t: "abecd")
+isOneEditDistance(s: "", t: "ab")
 
 
 

@@ -21,12 +21,35 @@ public class Solution {
      * @param upper: An integer
      * @return: a list of its missing ranges
      */
-    public findMissingRanges(nums: [Int], lower : Int, upper: Int) {
+
+    var result = [String]()
+    func findMissingRanges(nums: [Int], lower : Int, upper: Int) -> [String] {
     // write your code here
-    
 
+        guard nums.count != 0 else {
+            return result
+        }
+        addRange(lower, nums[0] - 1)
+        for i in 1 ..< nums.count {
+            addRange(nums[i - 1] + 1, nums[i] - 1)
+        }
+        addRange(nums[nums.count - 1], upper)
 
+        return result
+    }
 
+    private func addRange(_ lower: Int, _ upper: Int){
+        guard lower < upper else {return}
+        if lower == upper {
+            result.append("\(lower)")
+        }else {
+            result.append("\(lower) -> \(upper)")
+        }
     }
 }
+
+var s = Solution()
+
+s.findMissingRanges(nums: [2147483647], lower: 0, upper: 2147483647)
+
 

@@ -44,3 +44,47 @@ var str = "Hello, playground"
 //给你一个输入："dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext"
 //返回 20
 
+
+class Solution {
+
+    func longestFilePath(str: String) -> Int{
+
+
+        guard str != "" else {return 0}
+
+        var lineLengthArr = Array(repeating: 0, count: str.map{String($0)}.count + 1) //存储当前line长度与前面所有level的长度和  思考：为什么加1
+
+        var result = 0
+
+        for line in str.split(separator: "\n") {
+            let lineChar = line.map{String($0)}
+            var level = 1
+            for char in lineChar {
+                if char == "\t" {
+                    level += 1
+                }
+            }
+            let lineLength = lineChar.count - level + 1
+
+            if line.contains("."){
+                result = max(result, lineLengthArr[level - 1] + lineLength)
+            }else{
+                lineLengthArr[level] = lineLengthArr[level - 1] + lineLength + 1
+            }
+        }
+
+        return result
+
+    }
+}
+
+
+var solution = Solution()
+var input = "dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext"
+
+var result = solution.longestFilePath(str: input)
+result
+
+
+
+

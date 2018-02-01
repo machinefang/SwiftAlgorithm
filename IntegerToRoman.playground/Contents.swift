@@ -30,3 +30,17 @@ var str = "Hello, playground"
 
 //99 -> XCIX
 
+
+class Solution{
+    func romanToInt(n: Int)-> String{
+        let thousandArr = ["", "M", "MM", "MMM"]
+        let hundredArr = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"]
+        let tenArr = ["", "X", "XX", "XXX","XL", "L", "LX", "LXX", "LXXX", "XC"]
+        let iArr = ["", "I","II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
+
+        return thousandArr[n / 1000] + hundredArr[(n / 100) % 10] + tenArr[(n/10) % 10] + iArr[n % 10]
+
+
+    }
+}
+

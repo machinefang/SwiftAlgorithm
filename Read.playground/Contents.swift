@@ -17,12 +17,15 @@ var str = "Hello, playground"
 //read 函数可能被调用多次。
 
 
-struct Reader4{
+class Reader4{
+    func read4(_ buf: [Character.Type]) -> Int{
+        return 4 //return value depends on how many character left in file
+    }
 
 }
 
 
-class Solution : Reader4 {
+class Solution: Reader4 {
 
     /**
      * @param buf destination buffer
@@ -30,7 +33,36 @@ class Solution : Reader4 {
      * @return the number of characters read
      */
 
+    var buffer = Array(repeatElement(Character.self, count: 4))
+    var head = 0
+    var tail = 0
+
     func read(buf: [Character], n: Int) -> Int {
+
+        var desBuf = buf
+
+        var i = 0 //result
+        while(i < n) { //needs to read
+            //if queue is empty( buffer is a queue), then needs to call read4
+            if(head == tail) {
+                head = 0
+                tail = read4(buffer)
+                //check if file is empty
+
+                if(tail == 0) {
+                    break;
+                }
+            }
+
+            //if queue is not empty, then needs to assign value to it
+            while(i < n && head < tail) {
+                desBuf[i] = buffer[head]
+                i += 1
+                head += 1
+            }
+
+
+        }
 
     }
 }

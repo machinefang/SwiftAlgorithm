@@ -10,6 +10,7 @@ let range = start..<end
 str.substring(with: range)
 
 
+
 //Strings Serialization
 //http://www.lintcode.com/zh-cn/problem/strings-serialization/
 //http://www.jiuzhang.com/solutions/strings-serialization/
@@ -24,43 +25,111 @@ str.substring(with: range)
 //当你调用 decode(encoded_string)时 返回 ["lint","code","love","you"]
 
 
-class Solution{
-    func encode(s: [String]) -> String {
-        guard s.count > 1 else {
-            return ""
-        }
 
-        var result = ""
-        for i in 0 ..< s.count {
-            result += s[i] + ","
-        }
+class Solution {
 
-        return result
-    }
-
-    func decode(s: String) -> [String] {
-        var newArr : [String] = []
-        var sChar = s.map{String($0)}
-
-        var startIndex = 0
-        for i in 0 ..< sChar.count {
-            if sChar[i] == "," {
-               let start = s.index(s.startIndex, offsetBy: startIndex)
-                let end = s.index(s.startIndex, offsetBy: i)
-                let range = start..<end
-                newArr.append(s.substring(with: range))
-                startIndex = i + 1
+    func encode(strs: [String]) -> String {
+        var newString = ""
+        for i in 0..<strs.count {
+            var strArr = strs[i].map{String($0)}
+            var j = 0
+            while(j < strArr.count) {
+                if strArr[j] == ":" {
+                    newString.append("::")
+                }else{
+                    newString.append(strArr[j])
+                }
+                j += 1
             }
-        }
-        return newArr
+            if i < strs.count - 1 {
+                newString.append(":;")
+            }
 
+        }
+
+        print(newString)
+
+        return newString
     }
+
+    func decode(str: String) -> [String] {
+        var arr = [String]() //result array
+
+        var charArr = str.map{String($0)}
+        var i = 0
+        var decodeString = ""
+
+        while(i < charArr.count - 1) {
+            if charArr[i] == ":"{
+                if charArr[i + 1] == ";" {
+                    i = i + 2
+                    arr.append(decodeString)
+                    decodeString = ""
+                }else if charArr[i + 1] == ":" {
+                    decodeString = decodeString + ":"
+                    i = i + 2
+                }
+            } else {
+                decodeString = decodeString + charArr[i]
+                i = i + 1
+            }
+    }
+        decodeString.append(charArr[i])
+        arr.append(decodeString)
+
+        if arr[0] == "" {
+            arr.remove(at: 0)
+        }
+        return arr
 }
 
+}
+
+
+
+
+
+
+
+
+
+//class Solution{
+//    func encode(s: [String]) -> String {
+//        guard s.count > 1 else {
+//            return ""
+//        }
+//
+//        var result = ""
+//        for i in 0 ..< s.count {
+//            result += s[i] + ","
+//        }
+//
+//        return result
+//    }
+//
+//    func decode(s: String) -> [String] {
+//        var newArr : [String] = []
+//        var sChar = s.map{String($0)}
+//
+//        var startIndex = 0
+//        for i in 0 ..< sChar.count {
+//            if sChar[i] == "," {
+//               let start = s.index(s.startIndex, offsetBy: startIndex)
+//                let end = s.index(s.startIndex, offsetBy: i)
+//                let range = start..<end
+//                newArr.append(s.substring(with: range))
+//                startIndex = i + 1
+//            }
+//        }
+//        return newArr
+//
+//    }
+//}
+//
 var solution = Solution()
 
-let encodeString = solution.encode(s: ["lint","code","love","you"])
-let result = solution.decode(s: encodeString)
+let encodeString = solution.encode(strs: ["lint","co::;de","love","you"])
+let result = solution.decode(str: encodeString)
 
 
 

@@ -92,7 +92,7 @@ class Solution {
 
 
     func romanToInt(_ s: String) -> Int {
-        var romanArray = Array(s.characters.map{String($0)})
+        var romanArray = s.map{String($0)}
         var result = toInt(romanArray[0])
 
         for i in 1 ..< romanArray.count {
