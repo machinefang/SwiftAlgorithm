@@ -17,7 +17,11 @@ let mySubstring3 = str[range]  // play
 
 
 let arrayOfInts = [ 0, 1, 2, 3, 4, 5 ]
-let subArray = arrayOfInts[1...3]
+let subArray = arrayOfInts[1...3] // is not a string, need to use String()
+String(describing: subArray)
+let a = subArray.isEmpty
+
+
 
 
 // e.g. using joined()
@@ -35,44 +39,92 @@ n.count
 
 
 
-class Solution {
-    func longestPalindrome(_ s: String) -> String {
-        let sChars = s.map{String($0)}
+//class Solution {
+//    func longestPalindrome(_ s: String) -> String {
+//        let sChars = s.map{String($0)}
+//
+//        guard sChars.count > 1 else {
+//            return s
+//        }
+//
+//        var result = [sChars[0]]
+//
+//        for i in 0 ..< sChars.count - 1{
+//            var j = i + 1
+//            while(j < sChars.count) {
+//                if sChars[i] == sChars[j]{
+//                    let subarr = Array(sChars[i...j])
+//                    if isPalindrome(subarr){
+//                        if subarr.count > result.count{
+//                            result = subarr
+//                        }
+//                    }
+//                }
+//                j += 1
+//            }
+//        }
+//
+//        return result.flatMap{$0 as! String}.joined()
+//    }
+//
+//     private func isPalindrome(_ chars: [String]) -> Bool {
+//
+//        for i in 0 ..< chars.count / 2 {
+//            guard chars[i] == chars[chars.count - 1 - i] else {
+//                return false
+//            }
+//        }
+//        return true
+//    }
+//}
 
-        guard sChars.count > 1 else {
+
+class Solution{
+
+    func longestPalindrome(_ s: String) -> String {
+
+        let stringArr = s.map{String($0)}
+
+        guard stringArr.count > 1 else {
             return s
         }
+        //choose a center: actually is choose start point of left and right
+        //1:  use one element as center
+        //2:  use space between two element as center
+        var len = 0, start = 0, end = 0
 
-        var result = [sChars[0]]
+        for i in 0 ..< stringArr.count {
 
-        for i in 0 ..< sChars.count - 1{
-            var j = i + 1
-            while(j < sChars.count) {
-                if sChars[i] == sChars[j]{
-                    let subarr = Array(sChars[i...j])
-                    if isPalindrome(subarr){
-                        if subarr.count > result.count{
-                            result = subarr
-                        }
-                    }
-                }
-                j += 1
+            let len1 = expandAroundCenter(stringArr, i, i) //one element as center
+            let len2 = expandAroundCenter(stringArr, i, i + 1)
+            len = max(len1, len2)
+            if (len > end - start) {
+                start = i - (len - 1)/2 //rethink
+                end = i + len/2
             }
         }
 
-        return result.flatMap{$0 as! String}.joined()
+        return stringArr[start...end].flatMap{$0 as! String}.joined()
+
     }
 
-     private func isPalindrome(_ chars: [String]) -> Bool {
-
-        for i in 0 ..< chars.count / 2 {
-            guard chars[i] == chars[chars.count - 1 - i] else {
-                return false
+    func expandAroundCenter(_ m: [String], _ left: Int, _ right: Int) -> Int {
+        var le = left
+        var ri = right
+        while(le >= 0 && ri < m.count) {
+            if m[le] == m[ri] {
+                le -= 1
+                ri -= 1
             }
         }
-        return true
+
+      return ri - le - 1
+
     }
+
 }
+
+
 
 
 
